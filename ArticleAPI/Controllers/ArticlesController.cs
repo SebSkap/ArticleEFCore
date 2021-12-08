@@ -17,14 +17,12 @@ namespace ArticleAPI.Controllers
         [HttpGet]
         public IEnumerable<Article> Get()
         {
-            //ArticleDbContext dbContext = new ArticleDbContext();
             return dbContext.Articles;
         }
 
         [HttpPost]
         public IEnumerable<Article> Post(Article article)
         {
-            //ArticleDbContext dbContext = new ArticleDbContext();
             dbContext.Add(article);
             dbContext.SaveChanges();
             return dbContext.Articles;
@@ -33,10 +31,11 @@ namespace ArticleAPI.Controllers
         [HttpPut]
         public IEnumerable<Article> Put(Article article)
         {
-            //ArticleDbContext dbContext = new Arti
             dbContext.Update(article);
             dbContext.SaveChanges();
             return dbContext.Articles;
         }
+
+
     }
 }
