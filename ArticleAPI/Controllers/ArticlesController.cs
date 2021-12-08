@@ -12,7 +12,7 @@ namespace ArticleAPI.Controllers
     [ApiController]
     public class ArticlesController : ControllerBase
     {
-        ArticleDbContext dbContext = new ArticleDbContext();
+        readonly ArticleDbContext dbContext = new ArticleDbContext();
 
         [HttpGet]
         public IEnumerable<Article> Get()
