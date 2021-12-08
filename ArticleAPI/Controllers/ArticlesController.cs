@@ -12,18 +12,29 @@ namespace ArticleAPI.Controllers
     [ApiController]
     public class ArticlesController : ControllerBase
     {
+        ArticleDbContext dbContext = new ArticleDbContext();
+
         [HttpGet]
         public IEnumerable<Article> Get()
         {
-            ArticleDbContext dbContext = new ArticleDbContext();
+            //ArticleDbContext dbContext = new ArticleDbContext();
             return dbContext.Articles;
         }
 
         [HttpPost]
         public IEnumerable<Article> Post(Article article)
         {
-            ArticleDbContext dbContext = new ArticleDbContext();
+            //ArticleDbContext dbContext = new ArticleDbContext();
             dbContext.Add(article);
+            dbContext.SaveChanges();
+            return dbContext.Articles;
+        }
+
+        [HttpPut]
+        public IEnumerable<Article> Put(Article article)
+        {
+            //ArticleDbContext dbContext = new Arti
+            dbContext.Update(article);
             dbContext.SaveChanges();
             return dbContext.Articles;
         }
