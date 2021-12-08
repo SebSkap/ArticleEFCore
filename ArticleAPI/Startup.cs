@@ -26,15 +26,21 @@ namespace ArticleAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ArticleAPI", Version = "v1" });
             });
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddCors(options => {
-                options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:4200", "http://localhost:44349")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+                //.AllowCredentials());
             });
+
             services.AddControllers();
         }
 
@@ -48,11 +54,12 @@ namespace ArticleAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ArticleAPI v1"));
             }
 
-            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
