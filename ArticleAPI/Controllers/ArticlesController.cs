@@ -36,6 +36,12 @@ namespace ArticleAPI.Controllers
             return dbContext.Articles;
         }
 
-
+        [HttpDelete]
+        public IEnumerable<Article> Delete(Article article)
+        {
+            dbContext.Remove(article);
+            dbContext.SaveChanges();
+            return dbContext.Articles;
+        }
     }
 }
